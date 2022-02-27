@@ -23,7 +23,24 @@ class GithuAutomationApp():
         repo_name = str(input("Repo name to create: ")).lower()
         
         self.user.get_user().create_repo(name=repo_name, private=False)
+        
         print("Repo added.")
+        print("Cloning...")
+        
+        try:
+            os.system(f"bash .clone.sh {repo_name}") 
+            print("Cloned repo into 'PyProject' folder.")
+
+            repository = self.user.get_user().get_repo(repo_name)
+            working_repository = repository
+            print(working_repository.name)
+            
+
+
+        except:
+            print("Repo not found to clone.")
+
+
 
 
     
@@ -40,6 +57,9 @@ class GithuAutomationApp():
             if confirm == "y":
                 self.user.get_user().get_repo(repo).delete()
                 print("Repo has deleted.")
+                os.system(f"sudo rm -r ../{repo}")
+            else:
+                print("Repo not found.")
             
             if confirm == "n":
                 print("Process abord.")
@@ -51,12 +71,13 @@ class GithuAutomationApp():
 
 
 
-running = True
 
 command = ''
 
 def main():
 
+    running = True
+    
     print("Type help for display the help menu.")
     
     while running:
@@ -70,7 +91,6 @@ def main():
         if command == "create repo":
             app = GithuAutomationApp(token)
             app.add_repo()
-            app.list_repos()
     
         
         if command == "remove repo":
@@ -89,7 +109,7 @@ def main():
             print("""
                     HELP MENU:
                         
-                        create repo - This will create a repo at github.
+                        create repo - This will create a repo at github and clone into your folder.
     
                         remove repo - This will remove the repo from github.
     
