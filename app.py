@@ -1,7 +1,7 @@
 from github import Github 
 import os
 
-
+# Store your github token in this variable
 token = os.environ.get("GITTOKEN")
 
 
@@ -18,7 +18,8 @@ class GithuAutomationApp():
             print("Repo language: " + " " + str(repo.language))
             print("Last modified: " + " " + str(repo.last_modified) + "\n")
 
-
+    
+    # This function will add the repository in github and clone that empty repository.
     def add_repo(self):
         repo_name = str(input("Repo name to create: ")).lower()
         
@@ -43,7 +44,7 @@ class GithuAutomationApp():
 
 
 
-    
+    # This will remove the repository from github
     def remove_repo(self):
 
         for repo in self.user.get_user().get_repos():
@@ -74,6 +75,7 @@ class GithuAutomationApp():
 
 command = ''
 
+# This function will run the commmand that you enter.
 def main():
 
     running = True
@@ -120,7 +122,7 @@ def main():
                     """)
 
 if __name__ == "__main__":
-    main()
+    main() # Initiate the programe
 
 
 
