@@ -4,7 +4,8 @@ import os
 # Store your github token in this variable
 token = os.environ.get("GITTOKEN")
 
-
+# Store your github username here.
+USERNAME = "MrFanCode"
 
 class GithuAutomationApp():
 
@@ -29,12 +30,11 @@ class GithuAutomationApp():
         print("Cloning...")
         
         try:
-            os.system(f"bash .clone.sh {repo_name}") 
-            print("Cloned repo into 'PyProject' folder.")
-
+            project_dir = os.getcwd()
+            os.system(f"bash .clone.sh {repo_name} {USERNAME}") 
             repository = self.user.get_user().get_repo(repo_name)
             working_repository = repository
-            print(working_repository.name)
+            print("Your repo name: " + str(working_repository.name))
             
 
 
@@ -116,8 +116,10 @@ def main():
                         remove repo - This will remove the repo from github.
     
                         list repos - This will list all repository from your github.
+
+                        clear       - This will clear your console/terminal output.
     
-    
+                        exit        - To exit.
     
                     """)
 

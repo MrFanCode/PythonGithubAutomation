@@ -2,11 +2,11 @@
 
 clone() {
 	cd ../;
-	echo $GITTOKEN;
-	git clone https://github.com/MrFanCode/$1.git
+	echo Your repo has been cloned into $PWD folder.;
+	git clone https://github.com/$2/$1.git
 }
 
-clone $1
+clone $1 $2
 
 
 
