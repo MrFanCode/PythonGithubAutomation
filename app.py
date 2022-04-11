@@ -1,11 +1,12 @@
 from github import Github 
 import os
+from username import username
 
 # Store your github token in this variable
 token = os.environ.get("GITTOKEN")
 
 # Store your github username here.
-USERNAME = "MrFanCode"
+USERNAME = username
 
 class GithuAutomationApp():
 
