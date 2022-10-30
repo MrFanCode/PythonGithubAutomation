@@ -32,7 +32,8 @@ class GithuAutomationApp():
         
         try:
             project_dir = os.getcwd()
-            os.system(f"bash .clone.sh {repo_name} {USERNAME}") 
+            clone_cmd = f"bash .clone.sh {repo_name} {USERNAME}"
+            os.system(clone_cmd) 
             repository = self.user.get_user().get_repo(repo_name)
             working_repository = repository
             print("Your repo name: " + str(working_repository.name))
@@ -59,7 +60,8 @@ class GithuAutomationApp():
             if confirm == "y":
                 self.user.get_user().get_repo(repo).delete()
                 print("Repo has deleted.")
-                os.system(f"sudo rm -r ../{repo}")
+                remove_cmd = f"rm -r ../{repo}"
+                os.system(remove_cmd)
             else:
                 print("Repo not found.")
             
@@ -106,7 +108,8 @@ def main():
     
         
         if command == "clear":
-            os.system("clear")
+            clear_cmd = 'clear'
+            os.system(clear_cmd)
     
         if command == "help":
             print("""
