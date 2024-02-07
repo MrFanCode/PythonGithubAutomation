@@ -1,5 +1,6 @@
-from github import Github 
+from github import Github, Auth
 import os
+import shutil
 from username import username
 
 # Store your github token in this variable
@@ -10,8 +11,10 @@ USERNAME = username
 
 class GithuAutomationApp():
 
-    def __init__(self, token):
-        self.user = Github(token)
+    def __init__(self):
+        token = os.environ.get("GITTOKEN")
+        auth = Auth.Token(token)
+        self.user = Github(auth=auth)
         
         
     def list_repos(self):
@@ -60,8 +63,9 @@ class GithuAutomationApp():
             if confirm == "y":
                 self.user.get_user().get_repo(repo).delete()
                 print("Repo has deleted.")
-                remove_cmd = f"rm -r ../{repo}"
-                os.system(remove_cmd)
+                shutil.rmtree(f"../{repo}")
+                #remove_cmd = f"rm -r ../{repo}"
+                #os.system(remove_cmd)
             else:
                 print("Repo not found.")
             
@@ -82,24 +86,22 @@ command = ''
 def main():
 
     running = True
-    
     print("Type help for display the help menu.")
-    
     while running:
         command = str(input("command: ")).lower()
     
         if command == "list repos":
-            app = GithuAutomationApp(token)
+            app = GithuAutomationApp()
             app.list_repos()
     
         
         if command == "create repo":
-            app = GithuAutomationApp(token)
+            app = GithuAutomationApp()
             app.add_repo()
     
         
         if command == "remove repo":
-            app = GithuAutomationApp(token)
+            app = GithuAutomationApp()
             app.remove_repo()
     
     
@@ -128,7 +130,7 @@ def main():
                     """)
 
 if __name__ == "__main__":
-    main() # Initiate the programe
+    main() # Initiate the program
 
 
 
